@@ -1,24 +1,44 @@
 import requests
 import json
 
-TEST_MODE = True
+TEST_MODE = True # avoid wasting Api request limit
 API_KEY = "754d70ba88fe085162116f42fe034878"
+
+def get_lat_lon_values(city_name):
+    try:
+        if not TEST_MODE:
+            url = f"http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit={1}&appid={API_KEY}"
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+            print(f"get_lat_lon_values: {data}")
+        else:
+            jsonstr = "[{'name': 'Wolsztyn', 'local_names': {'ru': 'Вольштын', 'uk': 'Вольштин', 'de': 'Wollstein', 'pl': 'Wolsztyn', 'lt': 'Volštynas'}, 'lat': 52.11725, 'lon': 16.1126622, 'country': 'PL', 'state': 'Greater Poland Voivodeship'}]"
+            jsonstr = jsonstr.replace("'", '"')
+            data = json.loads(jsonstr)
+
+        return data[0]['lat'], data[0]['lon']
+
+
+    except requests.exceptions.RequestException as e:
+        print("Error fetching data:", e)
+        return None
 
 
 def get_sunshine_percentage(latitude, longitude):
     try:
-        if TEST_MODE:
+        if not TEST_MODE:
             url = f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={API_KEY}"
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
+            print(f"get_sunshine_percentage: {data}")
         else:
-            jsonstr = "{'coord': {'lon': -122.4194, 'lat': 37.7749}, 'weather': [{'id': 802, 'main': 'Clouds', 'description': 'scattered clouds', 'icon': '03n'}], 'base': 'stations', 'main': {'temp': 283.01, 'feels_like': 281.17, 'temp_min': 280.83, 'temp_max': 284.2, 'pressure': 1020, 'humidity': 86, 'sea_level': 1020, 'grnd_level': 1016}, 'visibility': 10000, 'wind': {'speed': 3.6, 'deg': 130}, 'clouds': {'all': 40}, 'dt': 1731496393, 'sys': {'type': 2, 'id': 2003880, 'country': 'US', 'sunrise': 1731509311, 'sunset': 1731545988}, 'timezone': -28800, 'id': 5391959, 'name': 'San Francisco', 'cod': 200}"
+            jsonstr = "{'coord': {'lon': 16.1127, 'lat': 52.1173}, 'weather': [{'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d'}], 'base': 'stations', 'main': {'temp': 277.34, 'feels_like': 275.77, 'temp_min': 277.1, 'temp_max': 278.12, 'pressure': 1028, 'humidity': 95, 'sea_level': 1028, 'grnd_level': 1019}, 'visibility': 10000, 'wind': {'speed': 1.82, 'deg': 236, 'gust': 3.53}, 'clouds': {'all': 100}, 'dt': 1731497479, 'sys': {'type': 1, 'id': 1714, 'country': 'PL', 'sunrise': 1731478372, 'sunset': 1731510424}, 'timezone': 3600, 'id': 3081419, 'name': 'Wolsztyn', 'cod': 200}"
+            jsonstr = jsonstr.replace("'", '"')
             data = json.loads(jsonstr)
 
-
         cloud_coverage = data['clouds']['all']
-
         sunshine_percentage = 100 - cloud_coverage
 
         return sunshine_percentage
@@ -26,6 +46,7 @@ def get_sunshine_percentage(latitude, longitude):
         print("Error fetching data:", e)
         return None
 
-# Get and print sunshine percentage
-sunshine_percentage_today = get_sunshine_percentage()
-print(sunshine_percentage_today)
+v = get_lat_lon_values("wolsztyn")
+
+t = get_sunshine_percentage(v[0], v[1])
+print(t)
