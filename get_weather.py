@@ -46,7 +46,6 @@ def get_sunshine_percentage(latitude, longitude):
         print("Error fetching data:", e)
         return None
 
-v = get_lat_lon_values("wolsztyn")
-
-t = get_sunshine_percentage(v[0], v[1])
-print(t)
+def get_sunshine_percentage_in(city_name):
+    v = get_lat_lon_values(city_name)
+    return get_sunshine_percentage(v[0], v[1])
