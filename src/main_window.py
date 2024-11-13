@@ -4,10 +4,6 @@ from .calculator import estimate_solar_power
 
 class EkokalkWindow:
 
-    SUNLIGHT_HOURS = 4  # Approximate sunlight hours in peak conditions
-    SUN_PERCENTAGE_TODAY = 0.8  # 80% sunshine today
-    PANEL_EFFICIENCY = 0.15  # 15% panel efficiency
-
     panel_size_entry = 0
     electricity_rate_entry = 0
     result_message = 0
