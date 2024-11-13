@@ -1,5 +1,7 @@
 # ekokalk
 
+Our app is a solar energy calculator that allows users to estimate how much energy their solar panels can produce during the day, taking into account current weather conditions (e.g., sunlight and cloud cover). The app pulls data from the OpenWeatherMap API, such as sunrise and sunset times, and percentage of cloud cover. The user can enter data such as panel area and actual daily energy consumption, and the app calculates the estimated energy production in kWh.
+
 # Guide step by step to set up
 This guide provides steps to set up a Python project with a requirements.txt file on both Linux and Windows 10. By following these steps, you will install the required dependencies for the project and ensure everything is set up correctly for development.
 
