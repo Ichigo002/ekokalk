@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from .get_weather import get_sunshine_percentage_in
+from .calculator import estimate_solar_power
 
 class EkokalkWindow:
 
@@ -25,17 +25,18 @@ class EkokalkWindow:
         header_label = tk.Label(self.window, text="Solar Panel Cost and Benefit Calculator", font=("Arial", 14, "bold"), fg="#333", bg="#f5f5f5")
         header_label.pack(pady=15)
 
-        # Input: Panel Size (kW)
-        tk.Label(self.window, text="Panel Size (kW):", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
-        self.panel_size_entry = tk.Entry(self.window, font=("Arial", 11), width=20)
-        self.panel_size_entry.pack()
+        tk.Label(self.window, text="City name:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
+        self.panel_city_name = tk.Entry(self.window, font=("Arial", 11), width=20)
+        self.panel_city_name.pack()
 
-        # Input: Electricity Rate (cents per kWh)
+        tk.Label(self.window, text="Actual Daily kwh:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
+        self.panel_production = tk.Entry(self.window, font=("Arial", 11), width=20)
+        self.panel_production.pack()
+
         tk.Label(self.window, text="Electricity Rate (cents per kWh):", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
         self.electricity_rate_entry = tk.Entry(self.window, font=("Arial", 11), width=20)
         self.electricity_rate_entry.pack()
 
-        # Calculate function
         self.result_message = tk.Label(self.window, text="", font=("Arial", 12), fg="#333", bg="#f5f5f5")
         self.result_message.pack(pady=10)
 
@@ -54,19 +55,19 @@ class EkokalkWindow:
             # Static values
 
         try:
-            panel_size_kw = float(self.panel_size_entry.get())
+            city_name = self.panel_city_name.get()
             electricity_rate_cents = float(self.electricity_rate_entry.get())
+            panel_production = float(self.panel_production.get())
             
-            # Calculate potential energy generated (kWh)
-            energy_generated_today = panel_size_kw * self.SUNLIGHT_HOURS * self.SUN_PERCENTAGE_TODAY * self.PANEL_EFFICIENCY
+            solar_panel_production_Wh = estimate_solar_power(city_name, panel_production)
             
             # Calculate savings (in cents)
-            savings_today = energy_generated_today * electricity_rate_cents
+            savings_today = solar_panel_production_Wh * electricity_rate_cents
             
 
             # Display the results
             self.result_message.config(text=(
-                f"Energy Produced Today: {energy_generated_today:.2f} kWh\n"
+                f"Energy Produced Today: {solar_panel_production_Wh:.2f} kWh\n"
                 f"Estimated Savings: {savings_today:.2f} cents"
             ))
         except ValueError:

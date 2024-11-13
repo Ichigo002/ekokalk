@@ -1,6 +1,3 @@
-import tkinter as tk
-from tkinter import messagebox
-from .get_weather import get_sunshine_percentage_in
 from .main_window import EkokalkWindow
 
 
