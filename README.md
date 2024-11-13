@@ -12,41 +12,38 @@ Let's start:
 1. Clone or Download the Project
 Ensure you have the project folder that contains the requirements.txt file on your local machine.
 
-2. Create a Virtual Environment
-A virtual environment ensures that your project's dependencies are isolated from the global Python environment.
-
 On Linux:
 
-3. Navigate to the project directory in terminal:
+2. Navigate to the project directory in terminal:
 
-4. Create a virtual environment:
+3. Create a virtual environment:
 `python3 -m venv venv`
 
-5. Activate the virtual environment:
+4. Activate the virtual environment:
 `source venv/bin/activate`
 
 On Windows 10:
 
-3. Navigate to the project directory in terminal:
+2. Navigate to the project directory in terminal:
 
-4. Create a virtual environment:
+3. Create a virtual environment:
 `python -m venv venv`
 
-5. Activate the virtual environment:
+4. Activate the virtual environment:
 `.\venv\Scripts\activate`
 
 Once activated, your command prompt should display the virtual environment name (e.g., (venv) ).
 
-3. Install Dependencies: `pip install -r requirements.txt`
+5. Install Dependencies: `pip install -r requirements.txt`
 
 This will install all the libraries and packages specified in the requirements.txt file.
 
-4. Verify Installation
+6. Verify Installation
 To ensure everything has been set up correctly, you can verify the installed packages using:
 `pip list`
 This will show you all the installed packages and their versions.
 
-5. Running the Project: `python -m src.main`. You must be in "ekokalk" directory
+7. Running the Project: `python -m src.main`. You must be in "ekokalk" directory
 
 
 Troubleshooting
