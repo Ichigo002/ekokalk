@@ -21,15 +21,15 @@ class EkokalkWindow:
         header_label = tk.Label(self.window, text="Solar Panel Cost and Benefit Calculator", font=("Arial", 14, "bold"), fg="#333", bg="#f5f5f5")
         header_label.pack(pady=15)
 
-        tk.Label(self.window, text="City name:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
+        tk.Label(self.window, text="Nazwa miasta:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
         self.panel_city_name = tk.Entry(self.window, font=("Arial", 11), width=20)
         self.panel_city_name.pack()
 
-        tk.Label(self.window, text="Actual Daily kwh:", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
+        tk.Label(self.window, text="Produkcja twoich paneli (kWh):", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
         self.panel_production = tk.Entry(self.window, font=("Arial", 11), width=20)
         self.panel_production.pack()
 
-        tk.Label(self.window, text="Electricity Rate (cents per kWh):", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
+        tk.Label(self.window, text="Koszt elektrycznosci (zł/kWh):", font=("Arial", 11), bg="#f5f5f5").pack(pady=(10, 5))
         self.electricity_rate_entry = tk.Entry(self.window, font=("Arial", 11), width=20)
         self.electricity_rate_entry.pack()
 
@@ -37,11 +37,11 @@ class EkokalkWindow:
         self.result_message.pack(pady=10)
 
         # Calculate button
-        calculate_button = tk.Button(self.window, text="Calculate", command=self.calculate_savings, font=("Arial", 10), bg="#4CAF50", fg="white")
+        calculate_button = tk.Button(self.window, text="Oblicz", command=self.calculate_savings, font=("Arial", 10), bg="#4CAF50", fg="white")
         calculate_button.pack(pady=20)
 
 
-        close_button = tk.Button(self.window, text="Close", command=self.close_window, font=("Arial", 10), bg="lightcoral", fg="white")
+        close_button = tk.Button(self.window, text="Zamknij", command=self.close_window, font=("Arial", 10), bg="lightcoral", fg="white")
         close_button.pack(pady=20)
 
     def close_window(self):
@@ -63,11 +63,11 @@ class EkokalkWindow:
 
             # Display the results
             self.result_message.config(text=(
-                f"Energy Produced Today: {solar_panel_production_Wh:.2f} kWh\n"
-                f"Estimated Savings: {savings_today:.2f} cents"
+                f"Energia wyprodukowana dzisiaj: {solar_panel_production_Wh:.2f} kWh\n"
+                f"Szacowane oszczędności: {savings_today:.2f} zł"
             ))
         except ValueError:
-            messagebox.showerror("Input Error", "Please enter valid numerical values.")
+            messagebox.showerror("Input Error", "Prosze wprowadzic prawidlowe wartości.")
 
 
 
